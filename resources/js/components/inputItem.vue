@@ -24,6 +24,7 @@ export default {
                     if( response.status == 201){
                         this.item.name =''
                         console.log("Item Inserted Succesfully")
+                        this.$emit('updateResult')
                     }
                 })
                 .catch( error =>{

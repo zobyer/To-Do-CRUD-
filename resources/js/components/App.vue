@@ -2,9 +2,9 @@
 <div class="toDocontainer">
   <div class="toDo">
     <h2>To DO App</h2>
-    <input-item />
+    <input-item v-on:updateResult="getItem()"/>
   </div>
-  <item-list />
+  <item-list :items="items" v-on:updateResult="getItem()"/>
 </div>
 </template>
 
@@ -14,6 +14,27 @@ import ItemList from './itemList.vue'
 
 export default {
   components: { inputItem, ItemList },
+  data: function(){
+    return{
+      items:[]
+    }
+  },
+  methods:{
+    getItem(){
+      axios.get('api/items')
+      .then( response => {
+        this.items = response.data
+        console.log("getting all items")
+      })
+      .catch( error =>{
+        console.log("Error getting all the item name")
+      })
+    }
+  },
+
+  created(){
+    this.getItem()
+  }
   
 }
 </script>
